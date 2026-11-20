@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: ServiceDesk API
+  version: 0.1.0
+servers:
+  - url: /api/v1
+paths:
+  /auth/login:
+    post:
+      summary: Inicia sesion y entrega tokens de acceso y renovacion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, format: password }
+      responses:
+        '200': { description: Sesion iniciada }
+  /auth/refresh:
+    post:
+      summary: Renueva un access token mediante refresh token
+      responses:
+        '200': { description: Token renovado }
+  /tickets:
+    get:
+      summary: Lista tickets visibles para el usuario autenticado
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { description: Lista de tickets }
+    post:
+      summary: Crea un ticket
+      security: [{ bearerAuth: [] }]
+      responses:
+        '201': { description: Ticket creado }
+  /tickets/{id}/attachments:
+    post:
+      summary: Adjunta un PDF, imagen o documento Office al ticket
+      security: [{ bearerAuth: [] }]
+      responses:
+        '201': { description: Archivo adjuntado }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"],
+    "noEmit": true,
+    "tsBuildInfoFile": "/tmp/servicedesk-vite.tsbuildinfo"
+  },
+  "include": ["vite.config.ts"]
+}
